@@ -1,35 +1,49 @@
 import java.util.Hashtable;
 
-/* This is a stub for the Library class */
+/**
+ * Extended class of Building where you can check-out and store books
+ * @param attributes from inheritance AND 
+ * collection of the library with title and their check-out status (hashtable)
+ * @return parameters or informations of the building
+ */
 public class Library extends Building{
+  /*Declaring the parameter: table of titles(string) and status(boolean)*/
   private Hashtable<String, Boolean> collection;
 
   public Library(String name, String address, int nFloors) {
+    /*Constructor */
     super(name, address, nFloors);
     this.collection = new Hashtable<>();
 
     System.out.println("You have built a library: 📖");
   }
 
+  /*Add books to the library */
   public void addTitle(String title){
     collection.put(title, true);
     System.out.println(title + " is added to the library");
   }
+
+  /*Remove books from the library; doesn't exist in collection */
   public String removeTitle(String title){
     collection.remove(title);
     System.out.println(title + " is removed from the library");
     return (title);
   }
 
+  /*Change check-out status of book from true to false */
   public void checkOut(String title){
     collection.replace(title, true, false);
     System.out.println(title + " is checked out from the library");
   }
+
+  /*Change check-out status of books from false to true when they return */
   public void Return(String title){
     collection.replace(title, false, true);
     System.out.println(title + " is returned to the library");
   }
 
+  /*returns true if book exists in the Libary's collection, false otherwise */
   public boolean containsTitle(String title){
     if (collection.containsKey(title)){
       System.out.println(title + " is in the library collection");
@@ -38,6 +52,8 @@ public class Library extends Building{
     System.out.println(title + " is not in the library collection");
     return false;
   }
+
+  /*returns true if book exists and is available in the Libary's collection, false otherwise; ready for check-out*/
   public boolean isAvailable(String title){
     if (collection.containsKey(title)){
       if (collection.get(title) == true){
@@ -50,11 +66,14 @@ public class Library extends Building{
 
     throw new RuntimeException(title + " doesn't exist in the library. Check Collection!");
   } 
+
+  /*prints out the entire collection in an easy-to-read way (including checkout status) */
   public void printCollection(){
     System.out.println(collection.toString());
   } 
   
   public static void main(String[] args) {
+    /*Main method (for testing) */
     Library Neilson = new Library("Neilson", "10 Elm Street", 5);
     Neilson.addTitle("Brave New World by Aldous Huxley");
     Neilson.addTitle("Maybe the Moon by Armistead Maupin");
