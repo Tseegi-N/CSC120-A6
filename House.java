@@ -12,8 +12,13 @@ public class House extends Building {
   private boolean hasDiningRoom;
   private boolean hasElevator;
 
+  /* Default Constructor */
+  public House(){
+    this("Unknown name", "Unknown address", 1, false, false);
+  }
+
+  /* Full Constructor */
   public House(String name, String address, int nFloors, boolean hasDR, boolean hasE) {
-    /*Constructor */
     super(name, address, nFloors);
     this.residents = new ArrayList<String>();
     this.hasDiningRoom = hasDR;
@@ -38,6 +43,12 @@ public class House extends Building {
     }
     System.out.println("No resident with that name exists in this house.");
     return("No resident with that name exists in this house.");
+  }
+
+  /* Overload moveOut method; all residents of the house move out because of summer break*/
+  public String moveOut(){
+    residents.clear();
+    return("All houses are empty due to summer break.");
   }
 
   /*Check residents name list for test */

@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.Hashtable;
 
 /**
@@ -11,8 +12,13 @@ public class Library extends Building{
   private Hashtable<String, Boolean> collection;
   private boolean hasElevator;
 
+  /* Default Constructor */
+  public Library(){
+    this("Uknown name", "Unknown address", 1, false);
+  }
+
+  /* Full Constructor */
   public Library(String name, String address, int nFloors, boolean hasE) {
-    /*Constructor */
     super(name, address, nFloors);
     this.collection = new Hashtable<>();
     this.hasElevator = hasE;
@@ -43,6 +49,12 @@ public class Library extends Building{
   public void Return(String title){
     collection.replace(title, false, true);
     System.out.println(title + " is returned to the library");
+  }
+
+  /* Overload return method; return all books year-end inspection */
+  public void Return(){
+    collection.replaceAll((key, oldValue)
+    -> true);
   }
 
   /*returns true if book exists in the Libary's collection, false otherwise */

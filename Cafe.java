@@ -11,8 +11,13 @@ public class Cafe extends Building {
     private int nCreams; // The number of "splashes" of cream remaining in inventory
     private int nCups; // The number of cups remaining in inventory
 
+    /* Default Constructor */
+    public Cafe(){
+        this("Unknown name", "Unknown address", 1, 10, 5, 5, 5);
+    }
+
+    /* Full Constructor */
     public Cafe(String name, String address, int nFloors, int coffee, int sugar, int cream, int cups) {
-        /*Constructor */
         super(name, address, nFloors);
         this.nCoffeeOunces = coffee;
         this.nSugarPackets = sugar;
@@ -24,6 +29,12 @@ public class Cafe extends Building {
     /*Reduces coffee ingredients according to the order; call restock method if ingredients run out */
     public void sellCoffee(int size, int sugar, int creams){
         //Check for inventory status and restock if necessary
+        if (nCups < 1){
+            System.out.println("Cups have ran out!");
+            restock(10);
+            System.out.println("Stocked inventory: " + nCoffeeOunces + " ounces of coffee, " +
+            nSugarPackets + " sugar packets, " + nCreams + " splashes of cream, " + nCups + " cups");  
+        }
         if (nCoffeeOunces < 1 || nCreams < 1 || nSugarPackets < 1 || nCups < 1){
             System.out.println("Please restock inventory!");
             restock(20, 10, 10, 5);
@@ -45,6 +56,11 @@ public class Cafe extends Building {
         this.nCoffeeOunces = nCoffee;
         this.nSugarPackets = nSugar;
         this.nCreams = nCream;
+        this.nCups = nCup;
+    }
+
+    /*overloads restock method; only refills cups as it can be washed */
+    private void restock(int nCup){
         this.nCups = nCup;
     }
 
