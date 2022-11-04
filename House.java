@@ -10,12 +10,14 @@ public class House extends Building {
   /*Declaring parameters*/
   private ArrayList<String> residents; 
   private boolean hasDiningRoom;
+  private boolean hasElevator;
 
-  public House(String name, String address, int nFloors, boolean hasDR) {
+  public House(String name, String address, int nFloors, boolean hasDR, boolean hasE) {
     /*Constructor */
     super(name, address, nFloors);
     this.residents = new ArrayList<String>();
     this.hasDiningRoom = hasDR;
+    this.hasElevator = hasE;
 
     System.out.println("You have built a house: 🏠");
   }
@@ -69,9 +71,28 @@ public class House extends Building {
     return false;
   }
 
+  /*overrides showOptions of Building; tells users what options are available */
+  @Override
+  public void showOptions(){
+      super.showOptions();
+      System.out.println(" + moveIn(name)\n + moveOut(name)\n + isResident(name)\n + hasDiningRoom()\n + nResidents()");
+  }
+
+  /*overrides goToFloor of Building; changes floor freely */
+  @Override
+  public void goToFloor(int floorNum){
+    if (hasElevator == true){
+      System.out.println("...Using elevator...");
+      super.goToFloor(floorNum);
+    }
+    else{
+      System.out.println("House doesn't have an elevater. Please use the stairs!");
+    }
+  }
+
   public static void main(String[] args) {
     /*Main method (for testing) */
-    House newHouse = new House("Capen", "10 Elm Street", 4, false);
+    House newHouse = new House("Capen", "10 Elm Street", 4, false, true);
     
     System.out.println(newHouse);
     newHouse.moveIn("Tseegi");
@@ -82,7 +103,9 @@ public class House extends Building {
     newHouse.moveOut("Nyamdorj");
     newHouse.isResident("Nyamdorj");
     newHouse.nResidents();
-    
+    newHouse.showOptions();
+    newHouse.enter();
+    newHouse.goToFloor(3);
   }
 
 }

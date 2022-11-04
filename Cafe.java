@@ -47,12 +47,20 @@ public class Cafe extends Building {
         this.nCreams = nCream;
         this.nCups = nCup;
     }
+
+    /*overrides showOptions of Building; tells users what options are available */
+    @Override
+    public void showOptions(){
+        super.showOptions();
+        System.out.println(" + sellCoffee(size, sugar, creams)");
+    }
     
     public static void main(String[] args) {
         /*Main method (for testing) */
         Cafe Compass = new Cafe("Compass", "Smith College", 1, 5, 3, 2, 1);
         Compass.sellCoffee(2, 1, 1);
         Compass.sellCoffee(2, 1, 1);
+        Compass.showOptions();
     }
     
 }

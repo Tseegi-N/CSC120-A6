@@ -9,11 +9,13 @@ import java.util.Hashtable;
 public class Library extends Building{
   /*Declaring the parameter: table of titles(string) and status(boolean)*/
   private Hashtable<String, Boolean> collection;
+  private boolean hasElevator;
 
-  public Library(String name, String address, int nFloors) {
+  public Library(String name, String address, int nFloors, boolean hasE) {
     /*Constructor */
     super(name, address, nFloors);
     this.collection = new Hashtable<>();
+    this.hasElevator = hasE;
 
     System.out.println("You have built a library: 📖");
   }
@@ -71,16 +73,38 @@ public class Library extends Building{
   public void printCollection(){
     System.out.println(collection.toString());
   } 
-  
+
+  /*overrides showOptions of Building; tells users what options are available */
+  @Override
+  public void showOptions(){
+      super.showOptions();
+      System.out.println(" + addTitle(title)\n + removeTitle(title)\n + checkOut(title)\n + Return(title)\n + containsTitle(title)\n + isAvailable(title)\n + printCollection()");
+  }
+
+  /*overrides goToFloor of Building; changes floor freely */
+  @Override
+  public void goToFloor(int floorNum){
+    if (hasElevator == true){
+      System.out.println("...Using elevator...");
+      super.goToFloor(floorNum);
+    }
+    else{
+      System.out.println("House doesn't have an elevater. Please use the stairs!");
+    }
+  }
+
   public static void main(String[] args) {
     /*Main method (for testing) */
-    Library Neilson = new Library("Neilson", "10 Elm Street", 5);
+    Library Neilson = new Library("Neilson", "10 Elm Street", 5, true);
     Neilson.addTitle("Brave New World by Aldous Huxley");
     Neilson.addTitle("Maybe the Moon by Armistead Maupin");
     Neilson.checkOut("Maybe the Moon by Armistead Maupin");
     Neilson.containsTitle("Maybe the Moon by Armistead Maupin");
     Neilson.isAvailable("Maybe the Moon by Armistead Maupin");
     Neilson.printCollection();
+    Neilson.showOptions();
+    Neilson.enter();
+    Neilson.goToFloor(4);
   }
   
 }
